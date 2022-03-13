@@ -21,13 +21,8 @@ public class ContactService implements IContactService {
     @Override
     @Transactional(readOnly = true)
     public List<Contact> list() {
-        try {
             return (List<Contact>) contactDao.findAll();
-        }catch (Exception e) {
-            System.out.println("Este es el error " + e);
-            return null;
         }
-    }
 
     @Override
     @Transactional
@@ -42,6 +37,22 @@ public class ContactService implements IContactService {
         return contactDao.save(contact);
     }
 
+    @Transactional
+    public void updateDataName(Long id , Contact contact ){
+        contactDao.updateDataName(id, contact.getName());
+    }
+
+    @Transactional
+    public void updateNumberPhone(Long id , Contact contact){
+        contactDao.updateNumberPhone(id, contact.getPhone());
+    }
+
+    @Transactional
+    public void updateEmail(Long id, Contact contact) {
+        contactDao.updateEmail(id, contact.getEmail());
+    }
+
+
     @Override
     @Transactional
     public void deleteData(Contact contact) {
@@ -53,6 +64,7 @@ public class ContactService implements IContactService {
     public Optional<Contact> findData(Contact contact) {
         return contactDao.findById(contact.getId());
     }
+
 
 
 }
